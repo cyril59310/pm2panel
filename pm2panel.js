@@ -59,6 +59,7 @@ app.get('/clearcache', function (req, res) {
         res.writeHead(302, {
             'Location': '/'
         });
+        res.end();
 
     } else {
         // redirect to login page
