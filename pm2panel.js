@@ -52,6 +52,22 @@ app.get('/', function (req, res) {
 
 });
 
+app.get('/clearcache', function (req, res) {
+    // check is login
+    if (req.session.islogin) {
+        delete req.session.notication;
+        res.sendFile(path.join(__dirname, 'www/index.html'))
+
+    } else {
+        // redirect to login page
+        res.writeHead(302, {
+            'Location': '/login'
+        });
+        res.end();
+    }
+
+});
+
 app.get('/login', function (req, res) {
 
     // render login page
