@@ -15,11 +15,11 @@
             <br />
 
             <div class="float-right">
-                <a id="refresh" class="button button-primary">  Refresh   </a>
-                <a href="/logout" class="button">  Logout   </a>
+                <a id="refresh" class="button button-primary">  actualiser   </a>
+                <a href="/logout" class="button">  Se déconnecter   </a>
             </div>
             <h2>
-                Welcome to PM2 panel  
+                Bienvenue sur le pannel PM2  
             </h2>
             <br />
             <pre id="notification">
@@ -28,12 +28,12 @@
             <table>
                 <thead>
                     <tr>
-                        <th>App name </th>
+                        <th>Nom de l'application </th>
                         <th>ID</th>
                         <th>pid</th>
                         <th>Status</th>
-                        <th>Restart</th>
-                        <th>Uptime</th>
+                        <th>Redémarrer</th>
+                        <th>Disponibilité</th>
                         <th>CPU</th>
                         <th>Mem</th>
                         <th> Action</th>
@@ -50,20 +50,20 @@
                         <td>{{process.monit.cpu}}</td>
                         <td>{{(process.monit.memory / (1024 * 1024 )).toFixed(2)}} MB</td>
                         <td>
-                            <a :href="'/restart?id='+process.pm_id">  
-                                [ Restart now ]
+                        <a :href="'/restart?id='+process.pm_id">  
+                            [ Redémarrer ]
                         </a>
                         &nbsp;
                         <a :href="'/delete?id='+process.pm_id" class="delete">  
-                            [ Delete ]
+                            [ Effacer ]
                     </a>
                     <a :href="'/stop?id='+process.pm_id" v-if="process.pm2_env.status == 'online'">
                         [ Stop ]
                     </a>
                     <a :href="'/start?id='+process.pm_id" v-else="">
-                        [ Start agin ]
+                        [ Démarrer ]
                     </a>
-
+                    &nbsp;
                     <a :href="'/log?id='+process.pm_id">  
                         [ log ]
                 </a>
@@ -80,12 +80,12 @@
 <br />
 <br />
 <div class="button button-primary" id="frmCrtl">
-    Show/Hide add prcocess form
+    Afficher/Masquer le formulaire de processus d'ajout
 </div>
 &nbsp;
 &nbsp;
 <a href="/dump" class="button"> 
-    Save current process
+    Enregistrer le processus en cours
 </a>
 <br />
 
@@ -93,17 +93,17 @@
 <form action="/addProccess" method="POST" class="row" id="addForm">
     <div class="column">
         <label> 
-            Task path:
+            Chemin de la tâche:
             <input type="text" name="path" v-model="choosedPath" />
         </label>
         <input type="submit" value="Add process now" class="button" />
 
     </div>
     <div class="column">
-        list of files:
+        liste des fichiers:
         <br />
 
-        (Current path: <b> {{currentDir}} </b>) 
+        (Chemin actuel: <b> {{currentDir}} </b>) 
 
         <ul id="folder-list">
             <li v-for="dir in folders"  >
@@ -111,16 +111,16 @@
 
                 <span v-if="dir.name !== '..'">
                     <a class="button button-small button-outline float-right explore" :href="dir.path+'/'">
-                       explore
+                        explorer
                 </a>
 
                 <a class="button float-right select  button-small button-outline" :href="dir.path">
-                    select
+                    sélectionner
                 </a>
             </span>
             <span v-else>
                 <a class="button float-right  button-small button-outline"  :href="dir.path+'/'" id="back">
-                   explore
+                    explorer
             </a>
         </span>
         <div class="clearfix"></div>
@@ -130,7 +130,6 @@
 </div>
 
 </form>
-<a href="https://github.com/4xmen/pm2panel"> PM2 panel copyright &copy; 2017 &nbsp; | &nbsp;&nbsp; A1Gard@4xmen   </a>
 <br />
 <br />
 </div>

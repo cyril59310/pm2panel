@@ -2,10 +2,10 @@
 //##############################################################################
 //                             config panel
 //##############################################################################
-const PORT = 3001;
+const PORT = 1234;
 const PAM_AUTH = false; // if set to true, USER and PASS won't be used
-const USER = 'admin';
-const PASS = 'admin';
+const USER = '';
+const PASS = '';
 const SESSTION_AGE = 10 * 60000; // 10 minutes
 
 //##############################################################################
@@ -22,14 +22,14 @@ const { pamAuthenticate, pamErrors } = require('node-linux-pam');
 var session = require('express-session');
 
 // Use the session middleware
-app.use(session({secret: 'keyboard cat', cookie: {maxAge: SESSTION_AGE}}));
+app.use(session({secret: 'keyboard cat', cookie: {maxAge: SESSTION_AGE}, resave:true, saveUninitialized:true}));
 
 // add assets path
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 // for parse post
 app.use(express.json());       // to support JSON-encoded bodies
-app.use(express.urlencoded()); // to support URL-encoded bodies
+app.use(express.urlencoded({ extended: true })); // to support URL-encoded bodies
 //
 //##############################################################################
 //                             rounting urls
@@ -40,6 +40,7 @@ app.get('/', function (req, res) {
     if (req.session.islogin) {
         // show index page
         res.sendFile(path.join(__dirname, 'www/index.html'));
+        //delete req.session.notication;
     } else {
         // redirect to login page
         res.writeHead(302, {
@@ -152,7 +153,7 @@ app.post('/addProccess', function (req, res) {
                 if (error != null) {
                     req.session.notication = error + stderr;
                 } else {
-                    req.session.notication = 'Process:' + req.body.path + ' started successfully';
+                    req.session.notication = 'Process:' + req.body.path + ' démarré avec succès';
                 }
                 res.writeHead(302, {
                     'Location': '/'
@@ -193,7 +194,7 @@ app.get('/restart', function (req, res) {
                 if (error != null) {
                     req.session.notication = error + stderr;
                 } else {
-                    req.session.notication = 'Process by id :' + req.query.id + ' restarted successfully';
+                    req.session.notication = 'Traiter par identifiant:' + req.query.id + ' redémarré avec succès';
                 }
                 res.end();
             });
@@ -223,7 +224,7 @@ app.get('/start', function (req, res) {
                 if (error != null) {
                     req.session.notication = error + stderr;
                 } else {
-                    req.session.notication = 'Process by id :' + req.query.id + ' started successfully';
+                    req.session.notication = 'Traiter par identifiant:' + req.query.id + ' démarré avec succès';
                 }
                 res.end();
             });
@@ -253,7 +254,7 @@ app.get('/stop', function (req, res) {
                 if (error != null) {
                     req.session.notication = error + stderr;
                 } else {
-                    req.session.notication = 'Process by id :' + req.query.id + ' stopped successfully';
+                    req.session.notication = 'Traiter par identifiant:' + req.query.id + ' arrêté avec succès';
                 }
                 res.end();
             });
@@ -283,7 +284,7 @@ app.get('/delete', function (req, res) {
                 if (error != null) {
                     req.session.notication = error + stderr;
                 } else {
-                    req.session.notication = 'Process by id :' + req.query.id + ' deleted successfully';
+                    req.session.notication = 'Traiter par identifiant:' + req.query.id + ' Supprimé avec succès';
                 }
                 res.end();
             });
@@ -311,7 +312,7 @@ app.get('/dump', function (req, res) {
             if (error != null) {
                 req.session.notication = error + stderr;
             } else {
-                req.session.notication = 'current procceses dumped ( saved ) successfully';
+                req.session.notication = 'processus en cours vidé (sauvegardé) avec succès';
             }
             res.end();
         });
@@ -449,5 +450,5 @@ app.get('/log', function (req, res) {
 //##############################################################################
 
 app.listen(PORT, function () {
-    console.log('pm2panel app listening on port ' + PORT + '! \n test: http://localhost:' + PORT);
+    console.log('pm2panel application écoutant sur le port ' + PORT + '! \n test: http://localhost:' + PORT);
 });
