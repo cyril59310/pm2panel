@@ -31,6 +31,7 @@ if you have problem in `npm install` step run this command on linux:
 On all the Debian/Ubuntu :
 ```bash
 sudo apt-get install libpam0g-dev
+sudo apt-get install build-essential
 ```
 On all the Centos and RHEL:
 ```bash
