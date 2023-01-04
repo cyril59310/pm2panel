@@ -147,7 +147,7 @@
             vue.now = Math.floor(newDate.getTime());
             $("#loader").slideUp(100);
         }).fail(function () {
-            alert('Error on get Data: Maybe pm2 not installed, or on runned user has not access to get data.'); // or whatever
+            alert("Erreur lors de l'obtention des données : Peut-être que pm2 n'est pas installé ou que l'utilisateur exécuté n'a pas accès pour obtenir des données."); // or whatever
             $("#loader").slideUp(100);
         });
 
@@ -210,7 +210,7 @@
         });
 
         $(document).on('click', '.delete', function () {
-            if (!confirm('Are you sure to delete this process ?')) {
+            if (!confirm('Êtes-vous sûr de vouloir supprimer ce processus ?')) {
                 return false;
             }
         });
