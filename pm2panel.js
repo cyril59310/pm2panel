@@ -2,10 +2,11 @@
 //##############################################################################
 //                             config panel
 //##############################################################################
-const PORT = 1234;
-const PAM_AUTH = false; // if set to true, USER and PASS won't be used
-const USER = '';
-const PASS = '';
+const config = require("./config")
+const PORT = config.port;
+const PAM_AUTH = config.pam_auth; // if set to true, USER and PASS won't be used
+const USER = config.user;
+const PASS = config.password;
 const SESSTION_AGE = 10 * 60000; // 10 minutes
 
 //##############################################################################
