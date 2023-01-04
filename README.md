@@ -39,17 +39,18 @@ sudo yum install pam-devel
 ```
 
 
-Then you can go to url : http://localhost:3001 or http://server_ip:3001 and the default user is `admin` and password is `admin`.
+Then you can go to url : http://localhost:1234 or http://server_ip:1234 and the default user is `empty` and password is `empty`.
 
 
-you can change config in first lines of `pm2panel.js`:
+you can change config in first lines of `config.js`:
 
 ```javascript
-const PORT = 3001;
-const PAM_AUTH = true; // if set to true, USER and PASS won't be used
-const USER = 'admin';
-const PASS = 'admin';
-const SESSTION_AGE = 10 * 60000; // 10 minutes
+module.exports = {
+    port: 1234,
+    pam_auth: false,
+    user: "",
+    password: "",
+}
 ```
 
 change port or user name and password
