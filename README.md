@@ -20,7 +20,7 @@ Requirement:
 
 
 ```bash
-git clone https://github.com/4xmen/pm2panel.git
+git clone https://github.com/cyril59310/pm2panel
 cd pm2panel
 npm install
 node pm2panel
